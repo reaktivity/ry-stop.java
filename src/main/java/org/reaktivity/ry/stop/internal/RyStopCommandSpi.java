@@ -13,13 +13,19 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-module org.reaktivity.ry.stop
+package org.reaktivity.ry.stop.internal;
+
+import org.reaktivity.ry.RyCommandSpi;
+import org.reaktivity.ry.stop.internal.command.RyStopCommand;
+
+import com.github.rvesse.airline.builder.CliBuilder;
+
+public final class RyStopCommandSpi implements RyCommandSpi
 {
-    requires org.reaktivity.ry;
-
-    opens org.reaktivity.ry.stop.internal.command
-       to com.github.rvesse.airline;
-
-    provides org.reaktivity.ry.RyCommandSpi
-        with org.reaktivity.ry.stop.internal.RyStopCommandSpi;
+    @Override
+    public void mixin(
+        CliBuilder<Runnable> builder)
+    {
+        builder.withCommand(RyStopCommand.class);
+    }
 }
